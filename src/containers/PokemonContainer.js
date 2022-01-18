@@ -24,10 +24,11 @@ export default function PokemonsContainer() {
       pokeTypes = type.name;
       return [...new Set(pokeTypes)];
     });
+    // pokeTypes.sort((a, b) => a.name.localeCompare(b.name));
     return pokeTypes;
   });
 
-  const removeDuplicateTypes = [...new Set(getPokemonTypes)];
+  const removeDuplicateTypes = [...new Set(getPokemonTypes.sort())];
 
   const handleTypeChange = (event) => {
     event.preventDefault();
