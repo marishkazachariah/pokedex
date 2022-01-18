@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/react-hooks";
+import { useState } from "react";
+import { Row, Divider, Button } from "antd";
 import { GET_POKEMON } from "../graphql/get-pokemons";
 import PokemonCard from "../components/PokemonCard";
-import { Row, Divider, Button } from "antd";
 import Searchbar from "../components/Searchbar";
-import { useState } from "react";
 
-export default function PokemonsContainer() {
+export default function PokemonContainer() {
   const { data: { allPokemon = [] } = {} } = useQuery(GET_POKEMON);
   const [pokemon, setPokemon] = useState(allPokemon);
   const [searchName, setSearchName] = useState('');
@@ -17,22 +17,25 @@ export default function PokemonsContainer() {
     setPokemon([...pokemon]);
   }
 
-  const getPokemonTypes = allPokemon.map((pokemon) => {
-    let pokeTypes = pokemon.types;
-    pokeTypes.map((type) => {
-      pokeTypes = type.name;
-      return [...new Set(pokeTypes)];
-    });
-    return pokeTypes;
-  });
-
-  const removeDuplicateTypes = [...new Set(getPokemonTypes.sort())];
-  
   function sortByType() {
     allPokemon.sort((a, b) => a.types[0].name.localeCompare(b.types[0].name));
     setPokemon([...pokemon]);
   }
 
+  const addFavouritePokemon = (pokemon) => {
+    const newFavouriteList = [...favourites, pokemon];
+    setFavourites(newFavouriteList);
+    console.log(favourites);
+  };
+
+  const getPokemonTypes = allPokemon.map((pokemon) => {
+    return pokemon.types.map((type) => {
+        return type.name;
+    });
+  }).flat();
+
+  const removeDuplicateTypes = [...new Set(getPokemonTypes)].sort();
+  
   const handleTypeChange = (event) => {
     event.preventDefault();
     setType(event.target.value);
@@ -45,7 +48,7 @@ export default function PokemonsContainer() {
 
   const filteredPokemon = allPokemon.filter(pokemon => {
     const types = pokemon.types.map((type) => { return type.name }) 
-    return (!searchName ? true: `${pokemon.name}`.toLowerCase().includes(searchName) )
+    return (!searchName ? true: `${pokemon.name}`.toLowerCase().includes(searchName.toLowerCase()) )
       && ((!type || type === "All") ? true : types.includes(type))
   })
 
@@ -66,7 +69,7 @@ export default function PokemonsContainer() {
         >
           <option value="All">All</option>
           {removeDuplicateTypes.map((type) => {
-            return <option value={type}>{type}</option>;
+            return <option key={type} value={type}>{type}</option>;
           })}
         </select>
       </Divider>
