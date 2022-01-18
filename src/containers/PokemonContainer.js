@@ -9,7 +9,8 @@ export default function PokemonsContainer() {
   const { data: { allPokemon = [] } = {} } = useQuery(GET_POKEMON);
   const [pokemon, setPokemon] = useState(allPokemon);
   const [searchName, setSearchName] = useState('');
-  const [type, setType] = useState("");
+  const [type, setType] = useState('');
+  const [favourites, setFavourites] = useState([]);
 
   function sortByName() {
     allPokemon.sort((a, b) => a.name.localeCompare(b.name));
@@ -27,9 +28,9 @@ export default function PokemonsContainer() {
 
   const removeDuplicateTypes = [...new Set(getPokemonTypes.sort())];
   
-  // can't seem to figure this one out...
   function sortByType() {
-      setType([...getPokemonTypes]);
+    allPokemon.sort((a, b) => a.types[0].name.localeCompare(b.types[0].name));
+    setPokemon([...pokemon]);
   }
 
   const handleTypeChange = (event) => {
