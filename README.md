@@ -10,7 +10,6 @@
 - ✅ My favorites should be accessible on a different route
 - ✅ Use this API https://studio.apollographql.com/sandbox
 I was the most unfamiliar with graphQL and this [tutorial](https://www.youtube.com/watch?v=yKFoAF7J0mc) helped me understand how to get the data using apollo and setup graphql with a new React project.
-- ✅ The URL for the graphql api is: https://dex-server.herokuapp.com/
 # Nice to haves
 - Unit tests
 - ✅ Show pokemon picture
