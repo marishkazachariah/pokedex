@@ -16,19 +16,21 @@ export default function PokemonsContainer() {
     setPokemon([...pokemon]);
   }
 
-  function sortByType() {}
-
   const getPokemonTypes = allPokemon.map((pokemon) => {
     let pokeTypes = pokemon.types;
     pokeTypes.map((type) => {
       pokeTypes = type.name;
       return [...new Set(pokeTypes)];
     });
-    // pokeTypes.sort((a, b) => a.name.localeCompare(b.name));
     return pokeTypes;
   });
 
   const removeDuplicateTypes = [...new Set(getPokemonTypes.sort())];
+  
+  // can't seem to figure this one out...
+  function sortByType() {
+      setType([...getPokemonTypes]);
+  }
 
   const handleTypeChange = (event) => {
     event.preventDefault();
@@ -39,7 +41,6 @@ export default function PokemonsContainer() {
     event.preventDefault();
     setSearchName(event.target.value)
   }
-
 
   const filteredPokemon = allPokemon.filter(pokemon => {
     const types = pokemon.types.map((type) => { return type.name }) 
@@ -68,7 +69,7 @@ export default function PokemonsContainer() {
           })}
         </select>
       </Divider>
-      <Searchbar />
+      <Searchbar handleSearch={handleNameChange} />
       <Row style={{ width: "100%", justifyContent: "center" }}>
           {filteredPokemon &&
           filteredPokemon.map((pokemon) => (
