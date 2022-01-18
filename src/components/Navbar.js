@@ -6,7 +6,7 @@ export default function Navbar() {
   return (
     <Menu mode="horizontal">
       <Menu.Item key="home">
-        <Link to="/">Pokédex</Link>
+        <Link to="/pokedex">Pokédex</Link>
       </Menu.Item>
       <Menu.Item key="favourites">
         <Link to="/favourites">View Favourites</Link>

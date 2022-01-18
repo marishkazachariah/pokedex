@@ -14,7 +14,7 @@ function App() {
     <ApolloProvider client={client}>
       <Navbar />
       <Routes>
-        <Route path="/" element={<PokemonContainer />} />
+        <Route path="/pokedex" element={<PokemonContainer />} />
         <Route path="/favourites" element={<Favourites />} />
       </Routes>
     </ApolloProvider>
