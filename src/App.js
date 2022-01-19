@@ -1,23 +1,24 @@
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "@apollo/react-hooks";
 import PokemonContainer from "./containers/PokemonContainer";
 import { Routes, Route } from "react-router-dom";
 import Favourites from "./containers/FavouritesContainer";
 import Navbar from "./components/Navbar";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_POKEMON } from "./graphql/get-pokemons";
 
 function App() {
-  const client = new ApolloClient({
-    uri: "https://dex-server.herokuapp.com/",
-  });
+  const { data: { allPokemon = [] } = {} } = useQuery(GET_POKEMON);
 
   return (
-    <ApolloProvider client={client}>
+    <>
       <Navbar />
       <Routes>
-        <Route path="/pokedex" element={<PokemonContainer />} />
+        <Route
+          path="/pokedex"
+          element={<PokemonContainer allPokemon={allPokemon} />}
+        />
         <Route path="/favourites" element={<Favourites />} />
       </Routes>
-    </ApolloProvider>
+    </>
   );
 }
 

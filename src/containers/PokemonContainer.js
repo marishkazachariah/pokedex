@@ -1,26 +1,23 @@
-import { useQuery } from "@apollo/react-hooks";
 import { useState } from "react";
-import { Row, Divider, Button } from "antd";
-import { GET_POKEMON } from "../graphql/get-pokemons";
+import { Row, Checkbox, Divider } from "antd";
 import PokemonCard from "../components/PokemonCard";
 import Searchbar from "../components/Searchbar";
+import { byName, byType } from "../utils/sort";
 
-export default function PokemonContainer() {
-  const { data: { allPokemon = [] } = {} } = useQuery(GET_POKEMON);
-  const [pokemon, setPokemon] = useState(allPokemon);
-  const [searchName, setSearchName] = useState('');
-  const [type, setType] = useState('');
+export default function PokemonContainer({ allPokemon }) {
+  const [searchName, setSearchName] = useState("");
+  const [type, setType] = useState("");
   const [favourites, setFavourites] = useState([]);
+  const [sortByName, setSortByName] = useState(false);
+  const [sortByType, setSortByType] = useState(false);
 
-  function sortByName() {
-    allPokemon.sort((a, b) => a.name.localeCompare(b.name));
-    setPokemon([...pokemon]);
-  }
+  const handleSortByName = () => {
+    setSortByName(!sortByName);
+  };
 
-  function sortByType() {
-    allPokemon.sort((a, b) => a.types[0].name.localeCompare(b.types[0].name));
-    setPokemon([...pokemon]);
-  }
+  const handleSortByType = () => {
+    setSortByType(!sortByType);
+  };
 
   const addFavouritePokemon = (pokemon) => {
     const newFavouriteList = [...favourites, pokemon];
@@ -28,29 +25,43 @@ export default function PokemonContainer() {
     console.log(favourites);
   };
 
-  const getPokemonTypes = allPokemon.map((pokemon) => {
-    return pokemon.types.map((type) => {
+  const getPokemonTypes = allPokemon
+    .map((pokemon) => {
+      return pokemon.types.map((type) => {
         return type.name;
-    });
-  }).flat();
+      });
+    })
+    .flat();
 
   const removeDuplicateTypes = [...new Set(getPokemonTypes)].sort();
-  
+
   const handleTypeChange = (event) => {
     event.preventDefault();
     setType(event.target.value);
   };
 
-  const handleNameChange = event => {
+  const handleNameChange = (event) => {
     event.preventDefault();
-    setSearchName(event.target.value)
-  }
+    setSearchName(event.target.value);
+  };
 
-  const filteredPokemon = allPokemon.filter(pokemon => {
-    const types = pokemon.types.map((type) => { return type.name }) 
-    return (!searchName ? true: `${pokemon.name}`.toLowerCase().includes(searchName.toLowerCase()) )
-      && ((!type || type === "All") ? true : types.includes(type))
-  })
+  const filteredPokemon = allPokemon.filter((pokemon) => {
+    const types = pokemon.types.map((type) => {
+      return type.name;
+    });
+    return (
+      (!searchName
+        ? true
+        : `${pokemon.name}`.toLowerCase().includes(searchName.toLowerCase())) &&
+      (!type || type === "All" ? true : types.includes(type))
+    );
+  });
+
+  const sortedPokemon = sortByName
+    ? byName(filteredPokemon)
+    : sortByType
+    ? byType(filteredPokemon)
+    : filteredPokemon;
 
   return (
     <div className="list-pokemon" style={{ justifyContent: "center" }}>
@@ -58,9 +69,24 @@ export default function PokemonContainer() {
         <h1>Pokédex: List of Pokémon</h1>
       </Divider>
       <Divider>
-        <Button onClick={sortByName}>Sort by Name</Button>
-        <Button onClick={sortByType}>Sort by Type</Button>
-        <label>Type</label>
+        <div>
+          <Checkbox
+            span="10"
+            value="sortByName"
+            checked={sortByName}
+            onChange={handleSortByName}
+          >
+            Sort By Name
+          </Checkbox>
+          <Checkbox
+            value="sortByType"
+            checked={sortByType}
+            onChange={handleSortByType}
+          >
+            Sort By Type
+          </Checkbox>
+        </div>
+        <label>Filter by Type</label>
         <select
           name="type"
           id="type"
@@ -69,14 +95,18 @@ export default function PokemonContainer() {
         >
           <option value="All">All</option>
           {removeDuplicateTypes.map((type) => {
-            return <option key={type} value={type}>{type}</option>;
+            return (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            );
           })}
         </select>
       </Divider>
       <Searchbar handleSearch={handleNameChange} />
       <Row style={{ width: "100%", justifyContent: "center" }}>
-          {filteredPokemon &&
-          filteredPokemon.map((pokemon) => (
+        {sortedPokemon &&
+          sortedPokemon.map((pokemon) => (
             <PokemonCard key={pokemon.id} pokemon={pokemon} />
           ))}
       </Row>
