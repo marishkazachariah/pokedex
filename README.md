@@ -1,6 +1,12 @@
 # Pokedex 
+
 ## Demo
 ![demo of pokedex](/public/pokedex-demo.gif)
+
+## Notes
+![graphqlerror](/public/graphql-heroku-error.png)
+I received this error on 20.01.2022 so it difficult to test at the moment.
+
 ## Requirements
 - [x] Must use latest version of Language/Framework of choice
 - [x] Must use CSS/SCSS to style component (use of a CSS framework is allowed and encouraged)
