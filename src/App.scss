@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mukta&family=Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Play:wght@700&family=Press+Start+2P&display=swap");
+
+$cardFontColor: #0a2342;
+$webpageFontColor: white;
+$headerFont: "Press Start 2P", cursive;
+$bodyFont: "Mukta", sans-serif;
+$cardFont: "Play", sans-serif;
+
+.Navbar {
+  font-family: $bodyFont;
+}
+
+.ant-menu {
+  background-color: rgba(255, 255, 255, 0.705) !important;
+}
+
+.PokemonContainer {
+  position: absolute;
+  width: 100%;
+  background: #4b79a1; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #283e51,
+    #0a2342
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #283e51,
+    #0a2342
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -olinear-gradient(to top, #283e51, #0a2342);
+  height: 10670vh;
+  h1 {
+    color: $webpageFontColor;
+    font-family: $headerFont;
+  }
+  p {
+    color: $webpageFontColor;
+    font-family: $bodyFont;
+  }
+  label {
+    color: $webpageFontColor;
+    font-family: $bodyFont;
+  }
+  color: $webpageFontColor;
+}
+
+#search {
+  margin-left: -10px;
+}
+
+.FilterFields {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  label {
+    margin-right: 30px;
+    font-size: 15px;
+  }
+  select {
+    margin-right: 50px;
+    color: black;
+  }
+  input:focus {
+    border-color: lightsteelblue;
+    outline: none;
+  }
+}
+
+.ListOfPokemonCards {
+  margin-top: 40px;
+}
+
+.PokemonCard {
+  p {
+    margin-bottom: 0px;
+    margin-top: 5px;
+    font-family: $cardFont;
+  }
+  button {
+    margin-top: 20px;
+  }
+  font-family: $cardFont;
+}
+
+.ant-tag {
+  margin-top: 10px;
+}
+
+div.CardBgImg {
+  background-color: #b0c4de;
+  border: 5px solid #fff4a2;
+  box-sizing: border-box;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.FaveContainer {
+  position: absolute;
+  width: 100%;
+  background: #4b79a1; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #283e51,
+    #0a2342
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #283e51,
+    #0a2342
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -olinear-gradient(to top, #283e51, #0a2342);
+  height: 200%;
+  h1 {
+    color: $webpageFontColor;
+    font-family: $headerFont;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}
