@@ -4,10 +4,9 @@ import PokemonCard from "../components/PokemonCard";
 import Searchbar from "../components/Searchbar";
 import { byName, byType } from "../utils/sort";
 
-export default function PokemonContainer({ allPokemon }) {
+export default function PokemonContainer( {allPokemon} ) {
   const [searchName, setSearchName] = useState("");
   const [type, setType] = useState("");
-  const [favourites, setFavourites] = useState([]);
   const [sortByName, setSortByName] = useState(false);
   const [sortByType, setSortByType] = useState(false);
 
@@ -17,12 +16,6 @@ export default function PokemonContainer({ allPokemon }) {
 
   const handleSortByType = () => {
     setSortByType(!sortByType);
-  };
-
-  const addFavouritePokemon = (pokemon) => {
-    const newFavouriteList = [...favourites, pokemon];
-    setFavourites(newFavouriteList);
-    console.log(favourites);
   };
 
   const getPokemonTypes = allPokemon
@@ -64,7 +57,7 @@ export default function PokemonContainer({ allPokemon }) {
     : filteredPokemon;
 
   return (
-    <div className="list-pokemon" style={{ justifyContent: "center" }}>
+    <div className="PokemonContainer" style={{ justifyContent: "center" }}>
       <Divider>
         <h1>Pokédex: List of Pokémon</h1>
       </Divider>
@@ -76,17 +69,19 @@ export default function PokemonContainer({ allPokemon }) {
             checked={sortByName}
             onChange={handleSortByName}
           >
-            Sort By Name
+            <p>Sort By Name</p>
           </Checkbox>
           <Checkbox
             value="sortByType"
             checked={sortByType}
             onChange={handleSortByType}
           >
-            Sort By Type
+            <p>Sort By Type</p>
           </Checkbox>
         </div>
-        <label>Filter by Type</label>
+        </Divider>
+        <div className="FilterFields">
+        <label>Filter By Type</label>
         <select
           name="type"
           id="type"
@@ -102,14 +97,16 @@ export default function PokemonContainer({ allPokemon }) {
             );
           })}
         </select>
-      </Divider>
       <Searchbar handleSearch={handleNameChange} />
+      </div>
+      <div className="ListOfPokemonCards">
       <Row style={{ width: "100%", justifyContent: "center" }}>
         {sortedPokemon &&
           sortedPokemon.map((pokemon) => (
             <PokemonCard key={pokemon.id} pokemon={pokemon} />
           ))}
       </Row>
+      </div>
     </div>
   );
 }

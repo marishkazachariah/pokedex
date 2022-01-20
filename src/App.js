@@ -1,9 +1,11 @@
 import PokemonContainer from "./containers/PokemonContainer";
-import { Routes, Route } from "react-router-dom";
-import Favourites from "./containers/FavouritesContainer";
+import FavouritesContainer from "./containers/FavouritesContainer";
 import Navbar from "./components/Navbar";
+import { Routes, Route } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_POKEMON } from "./graphql/get-pokemons";
+import "./App.scss";
+
 
 function App() {
   const { data: { allPokemon = [] } = {} } = useQuery(GET_POKEMON);
@@ -13,10 +15,10 @@ function App() {
       <Navbar />
       <Routes>
         <Route
-          path="/pokedex"
+          path="/pokedex/"
           element={<PokemonContainer allPokemon={allPokemon} />}
         />
-        <Route path="/favourites" element={<Favourites />} />
+        <Route path="/favourites/" element={<FavouritesContainer />} />
       </Routes>
     </>
   );

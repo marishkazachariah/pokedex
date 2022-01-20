@@ -5,7 +5,6 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { BrowserRouter as Router } from "react-router-dom";
 import "antd/dist/antd.min.css";
-// import "./styles.scss";
 
 const client = new ApolloClient({
   uri: "https://dex-server.herokuapp.com/",
