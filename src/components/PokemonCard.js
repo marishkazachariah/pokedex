@@ -1,10 +1,10 @@
-import { Card, Col, Button, Tag, Divider } from "antd";
+import { Card, Col, Button, Tag } from "antd";
 import React, { useState, useEffect } from "react";
 
 export default function PokemonCard({ pokemon }) {
   const [favourites, setFavourites] = useState([]);
   // const [headerColor, setHeaderColor] = useState("");
-  
+
   useEffect(() => {
     const pokeFavourites = JSON.parse(
       localStorage.getItem("pokedex-favourites")
