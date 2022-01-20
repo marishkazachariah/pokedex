@@ -1,5 +1,6 @@
 # Pokedex 
-
+## Demo
+![demo of pokedex](/public/pokedex-demo.gif)
 ## Requirements
 - [x] Must use latest version of Language/Framework of choice
 - [x] Must use CSS/SCSS to style component (use of a CSS framework is allowed and encouraged)
